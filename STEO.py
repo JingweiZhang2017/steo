@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os, sys
-import urllib
+# import urllib
+import urllib.request
 import datetime
 import logging
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
@@ -63,10 +64,14 @@ def download_excel_data(outdir):
                 excel_format = 'xlsx'
             dls = "https://www.eia.gov/outlooks/steo/archives/%s%s_base.%s"%(month, year, excel_format)
             source_file_name = dls.split('/')[-1]
-            target_file_name = year + month_int + '.' + excel_format
+            target_file_name = '20'+ year + month_int + '.' + excel_format
             file_name_full = outdir + '/' + target_file_name
             if os.path.isfile(file_name_full) == False: 
-                urllib.request.urlretrieve(dls, file_name_full)
+#                 urllib.request.urlretrieve(dls, file_name_full)
+                response = urllib.request.urlopen(dls)
+                table = response.read()
+                with open(file_name_full, "wb") as file:
+                     file.write(table)
                 
                 if year == str(end_year):
                     try:
@@ -121,7 +126,7 @@ def extract_target_series_since0710(path, file_name):
 #     cols = ['Year', 'Month'] + target_df.code.tolist()
     df = df.reset_index().drop('index', axis = 1).drop(0)
 
-    df['time_index'] = df.apply(lambda x: str(int(x.Year))[-2:] + format_month_str(x.Month.lower()), axis =1)
+    df['time_index'] = df.apply(lambda x: str(int(x.Year)) + format_month_str(x.Month.lower()), axis =1)
     df = df.set_index('time_index')
     price_dict = dict()
     pct_dict = dict()
@@ -130,7 +135,7 @@ def extract_target_series_since0710(path, file_name):
         pct_dict[target_price] = price_dict[target_price].pct_change()
     return price_dict, pct_dict
 
-def get_pred_matrix (series_df, target_price, end_year, start_year = '0810'):
+def get_pred_matrix (series_df, target_price, end_year, start_year = '200810'):
     
     '''
     This function transforms the price series into a matrix (dataframe format) with  rows as time period (like 0810,0811 ...) 
@@ -167,7 +172,7 @@ def get_pred_matrix (series_df, target_price, end_year, start_year = '0810'):
     return matrix_df
 
 def transform_data(data_path, output_path):
-    file_name_list = sorted([file for file in os.listdir(data_path) if file.split('.')[1].startswith('xls') and int(file.split('.')[0]) >= int('0710')])
+    file_name_list = sorted([file for file in os.listdir(data_path) if file.split('.')[1].startswith('xls') and int(file.split('.')[0]) >= int('200710')])
     price_dict_list = list()
     pct_dict_list = list()
     for file_name in file_name_list:
