@@ -1,0 +1,12 @@
+code,description,category
+WTIPUUS,West Texas Intermediate Spot Average,Crude oil
+MGWHUUS,Gasoline,Liquid fuels – Refiner prices for resale
+DSWHUUS,Diesel Fuel,Liquid fuels – Refiner prices for resale
+D2WHUUS,Fuel Oil,Liquid fuels – Refiner prices for resale
+MGRARUS,Gasoline Regular Grade,Liquid fuels – Retail prices including Taxes
+MGEIAUS,Gasoline All Grades,Liquid fuels – Retail prices including Taxes
+DSRTUUS,On-highway Diesel Fuel,Liquid fuels – Retail prices including Taxes
+D2RCAUS,Heating Oil,Liquid fuels – Retail prices including Taxes
+NGHHMCF,Henry Hub Spot,Natural gas
+NGRCUUS,Retail prices – residential sector,Natural gas
+ESRCUUS,Retail prices – residential sector,Electricity
