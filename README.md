@@ -1,23 +1,28 @@
 # steo
 
-Direction 
+This repo contains scripts to download the spreadsheets of the US short-term energy price forecasts by EIA (US Energy Information Administration) and evaluate the forecast performance. 
 
-python > 3.7
+### To run 
 
-1. Clone the repository to your local directory
-`git clone https://github.com/JingweiZhang2017/steo.git` 
+Make sure `python version >= 3.7`
 
-2. Change directory to 
-`cd ../steo`
+```
+git clone https://github.com/JingweiZhang2017/steo.git
 
-3. Set up the environment
-`pip install -r requirements.txt`
+cd steo
 
-4. Run the script
-`python3 STEO.py`
+pip install -r requirements.txt
+
+python3 STEO.py
+```
+
+It will create 3 folder with csv files:
+
+`/data` for forecast spreadsheets downloaded from https://www.eia.gov/outlooks/steo/outlook.php#issues2021
+
+`/pred` for parsed tables with prediction from 1 to 12 month ahead
+
+`/eval` for evaluation results with metric like MAE, RMSE and MAPE
 
 
 
-
-
-https://www.eia.gov/outlooks/steo/outlook.php#issues2021
